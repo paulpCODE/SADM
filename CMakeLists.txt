@@ -14,9 +14,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 
+find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
+
+
+#add_library(qcustomplot SHARED)
+#target_compile_definitions(qcustomplot PRIVATE QCUSTOMPLOT_COMPILE_LIBRARY)
+#target_include_directories(qcustomplot PUBLIC ${CMAKE_CURRENT_LIST_DIR}/qcustomplot)
+#target_sources(qcustomplot PUBLIC ${CMAKE_CURRENT_LIST_DIR}/qcustomplot/qcustomplot.h)
+#target_sources(qcustomplot PUBLIC ${CMAKE_CURRENT_LIST_DIR}/qcustomplot/qcustomplot.cpp)
+#target_link_libraries(qcustomplot PUBLIC Qt6::Core Qt6::Gui Qt6::Widgets Qt6::PrintSupport)
+
+
 set(PROJECT_SOURCES
         main.cpp
         qml.qrc
+        customplotitem.h customplotitem.cpp
+        qcustomplot/qcustomplot.h
+        qcustomplot/qcustomplot.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -43,9 +57,11 @@ else()
 endif()
 
 target_compile_definitions(SADM
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
+  QCUSTOMPLOT_COMPILE_LIBRARY)
 target_link_libraries(SADM
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick
+  PUBLIC Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
 
 set_target_properties(SADM PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

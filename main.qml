@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
+import CustomPlot 1.0
 
 Window {
     width: 640
