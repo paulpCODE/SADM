@@ -28,9 +28,11 @@ find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
 set(PROJECT_SOURCES
         main.cpp
         qml.qrc
-        customplotitem.h customplotitem.cpp
         qcustomplot/qcustomplot.h
         qcustomplot/qcustomplot.cpp
+        worker.h worker.cpp
+        workerslist.h workerslist.cpp
+        workerslistmodel.h workerslistmodel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
