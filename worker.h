@@ -20,12 +20,20 @@ public:
     };
     Q_ENUM(WorkerStatus)
 
+
+
+    enum FireReason {
+        NECESSARY,
+        EXCESSIVE
+    };
+    Q_ENUM(FireReason)
+
 private:
 
     unsigned int            m_ID;
     WorkerStatus            m_Status;
     QPair<QString, QString> m_Name;
-    QChar                    m_Gender;
+    QChar                   m_Gender;
     QDate                   m_BirthDate;
     QDate                   m_EmploymentDate;
     QDate                   m_FireDate;

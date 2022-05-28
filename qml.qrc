@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>BUTTON.qml</file>
+        <file>LIST.qml</file>
+        <file>SWITCHER.qml</file>
     </qresource>
 </RCC>
