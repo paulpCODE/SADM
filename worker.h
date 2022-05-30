@@ -23,6 +23,7 @@ public:
 
 
     enum FireReason {
+        NONE,
         NECESSARY,
         EXCESSIVE
     };
@@ -43,7 +44,7 @@ private:
     explicit Worker(QObject * parent = nullptr) :
         QObject(parent),
         m_ID(0),
-        m_Status(WorkerStatus::ACTIVE),
+        m_Status(ACTIVE),
         m_Gender('M'),
         m_Salary(0)
     {};

@@ -10,11 +10,13 @@ Item {
     signal sButtonChecked()
 
     // if true - Button Can Toggle / On / Off
-    required property bool bCanToggle
+    property bool bCanToggle: false
 
     property bool bHoverEnabled: true
 
     property bool callSignalOnlyIfButtonOff: false
+
+    property bool bIsCheckBox: true
 
     readonly property bool isButtonOn: privatevariables.pbOn
 
@@ -58,7 +60,12 @@ Item {
         Text {
             id: text
             anchors.centerIn: parent
-            text: "Button"
+            text: {
+                if(bIsCheckBox) {
+                    return ""
+                }
+                return "Button"
+            }
         }
 
         MouseArea {

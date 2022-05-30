@@ -4,5 +4,12 @@
         <file>BUTTON.qml</file>
         <file>LIST.qml</file>
         <file>SWITCHER.qml</file>
+        <file>DELEGATE.qml</file>
+        <file>SEPARATOR.qml</file>
+        <file>WCHANGEWINDOW.qml</file>
+        <file>WSHOWWINDOW.qml</file>
+        <file>DATEPICKER.qml</file>
+        <file>INPUT.qml</file>
+        <file>DATEINPUT.qml</file>
     </qresource>
 </RCC>
