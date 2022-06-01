@@ -11,5 +11,9 @@
         <file>DATEPICKER.qml</file>
         <file>INPUT.qml</file>
         <file>DATEINPUT.qml</file>
+        <file>modelfunctions.js</file>
+        <file>buttonsfunctions.js</file>
+        <file>WCHANGEANDSHOWWINDOW.qml</file>
+        <file>WLISTWINDOW.qml</file>
     </qresource>
 </RCC>

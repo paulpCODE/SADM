@@ -18,15 +18,16 @@ QVariant WorkersListModel::data(const QModelIndex &index, int role) const
 
     const Worker* const item = m_list->workersList().at(index.row());
     switch (role) {
-    case WORKERSTATUS: return QVariant(item->Status());
-    case FIRSTNAME: return QVariant(item->Name().first);
-    case LASTNAME: return QVariant(item->Name().second);
-    case GENDER: return QVariant(item->Gender());
-    case BIRTHDATE: return QVariant(item->BirthDate());
-    case EMPLOYMENTDATE: return QVariant(item->EmploymentDate());
-    case FIREDATE: return QVariant(item->FireDate());
-    case SALARY: return QVariant(item->Salary());
-    case ADDITIONALINFO: return QVariant(item->AdditionalInfo());
+    case WorkerStatusRole: return QVariant(item->Status());
+    case FirstNameRole: return QVariant(item->Name().first);
+    case LastNameRole: return QVariant(item->Name().second);
+    case GenderRole: return QVariant(item->Gender());
+    case BirthDateRole: return QVariant(item->BirthDate());
+    case EmploymentDateRole: return QVariant(item->EmploymentDate());
+    case FireDateRole: return QVariant(item->FireDate());
+    case FireReasonRole: return QVariant(item->FireReason());
+    case SalaryRole: return QVariant(item->Salary());
+    case AdditionalInfoRole: return QVariant(item->AdditionalInfo());
     }
     return QVariant();
 }
@@ -40,15 +41,16 @@ bool WorkersListModel::setData(const QModelIndex &index, const QVariant &value, 
         Worker* const item = m_list->workersList().at(index.row());
 
         switch(role) {
-        case WORKERSTATUS:  Worker::changeWorker(item)->setStatus(Worker::WorkerStatus(value.toInt())); break;
-        case FIRSTNAME:     Worker::changeWorker(item)->setFirstName(value.toString()); break;
-        case LASTNAME:      Worker::changeWorker(item)->setLastName(value.toString()); break;
-        case GENDER:        Worker::changeWorker(item)->setGender(value.toBool()); break;
-        case BIRTHDATE:     Worker::changeWorker(item)->setBirthDate(value.toDate()); break;
-        case EMPLOYMENTDATE:Worker::changeWorker(item)->setEmploymentDate(value.toDate()); break;
-        case FIREDATE:      Worker::changeWorker(item)->setFireDate(value.toDate()); break;
-        case SALARY:        Worker::changeWorker(item)->setSalary(value.toUInt()); break;
-        case ADDITIONALINFO:Worker::changeWorker(item)->setAdditionalInfo(value.toString()); break;
+        case WorkerStatusRole:  Worker::changeWorker(item)->setStatus(Worker::WorkerStatus(value.toInt())); break;
+        case FirstNameRole:     Worker::changeWorker(item)->setFirstName(value.toString()); break;
+        case LastNameRole:      Worker::changeWorker(item)->setLastName(value.toString()); break;
+        case GenderRole:        Worker::changeWorker(item)->setGender(value.toBool()); break;
+        case BirthDateRole:     Worker::changeWorker(item)->setBirthDate(value.toDate()); break;
+        case EmploymentDateRole:Worker::changeWorker(item)->setEmploymentDate(value.toDate()); break;
+        case FireDateRole:      Worker::changeWorker(item)->setFireDate(value.toDate()); break;
+        case FireReasonRole:    Worker::changeWorker(item)->setFireReason(Worker::WorkerFireReason(value.toInt())); break;
+        case SalaryRole:        Worker::changeWorker(item)->setSalary(value.toUInt()); break;
+        case AdditionalInfoRole:Worker::changeWorker(item)->setAdditionalInfo(value.toString()); break;
         default: break;
         }
 
@@ -71,15 +73,16 @@ Qt::ItemFlags WorkersListModel::flags(const QModelIndex &index) const
 QHash<int, QByteArray> WorkersListModel::roleNames() const
 {
     QHash<int, QByteArray> Roles;
-    Roles[WORKERSTATUS] = "WORKERSTATUS";
-    Roles[FIRSTNAME] = "FIRSTNAME";
-    Roles[LASTNAME] = "LASTNAME";
-    Roles[GENDER] = "GENDER";
-    Roles[BIRTHDATE] = "BIRTHDATE";
-    Roles[EMPLOYMENTDATE] = "EMPLOYMENTDATE";
-    Roles[FIREDATE] = "FIREDATE";
-    Roles[SALARY] = "SALARY";
-    Roles[ADDITIONALINFO] = "ADDITIONALINFO";
+    Roles[WorkerStatusRole] = "status";
+    Roles[FirstNameRole] = "firstname";
+    Roles[LastNameRole] = "lastname";
+    Roles[GenderRole] = "gender";
+    Roles[BirthDateRole] = "birthdate";
+    Roles[EmploymentDateRole] = "employmentdate";
+    Roles[FireDateRole] = "firedate";
+    Roles[FireReasonRole] = "firereason";
+    Roles[SalaryRole] = "salary";
+    Roles[AdditionalInfoRole] = "additionalinfo";
     return Roles;
 
 }
@@ -106,13 +109,28 @@ void WorkersListModel::setList(WorkersList *newList)
         connect(m_list,&WorkersList::postWorkerAdded,this,[=](){
             endInsertRows();
         });
-//        connect(m_list,&DiaryList::preItemDeleted,this,[=](int index){
-//            beginRemoveRows(QModelIndex(),index,index);
-//        });
-//        connect(m_list,&DiaryList::postItemDeleted,this,[=](){
-//            endRemoveRows();
-//        });
+        connect(m_list,&WorkersList::preWorkerDeleted,this,[=](int index){
+            beginRemoveRows(QModelIndex(),index,index);
+        });
+        connect(m_list,&WorkersList::postWorkerDeleted,this,[=](){
+            endRemoveRows();
+        });
     }
 
     endResetModel();;
+}
+
+QDate JSQVariantConverter::toDate(const QVariant &value)
+{
+    return value.toDate();
+}
+
+QString JSQVariantConverter::toString(const QVariant &value)
+{
+    return value.toString();
+}
+
+int JSQVariantConverter::toInt(const QVariant &value)
+{
+    return value.toInt();
 }

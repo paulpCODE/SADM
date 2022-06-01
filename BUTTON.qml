@@ -1,7 +1,6 @@
 import QtQuick 2.0
 
 Item {
-
     id: button
 
     //Width | Height -- Item
@@ -11,34 +10,62 @@ Item {
 
     // if true - Button Can Toggle / On / Off
     property bool bCanToggle: false
-
+    // For Mouse area. If false -> cant enter to state "Enabled"
     property bool bHoverEnabled: true
+    // If true -> sButtonChecked emits only if button is off. Works only if button can toggle
+    property bool callSignalOnlyIfButtonOff
+    // property for check if button is on.
+    readonly property alias isButtonOn: privatevariables.pbOn
 
-    property bool callSignalOnlyIfButtonOff: false
-
-    property bool bIsCheckBox: true
-
-    readonly property bool isButtonOn: privatevariables.pbOn
-
-    //COLOR b = button
+    //Color in default state
     property color bColor: "white"
+    // Color in entered state
     property color bEnteredColor: "#E8E8E8"
+    // Color in pressed state
     property color bPressedColor: "#DCDCDC"
 
-    //BUTTON TEXT
-    property alias bText: text
+    // Text inside the button
+    property alias bText: buttonText.text
+    // Reference to Text item.
+    property alias bTextItemRef: buttonText
 
-    //BORDER
+    // Border color
     property color bBorderColor: "black"
+    // Border width
     property int bBorderWidth: 0
+    // Border radius (Background Rectangle radius property)
     property int bBorderRadius: 0
 
-    //TURN ON STATE
+    // "On" state settings
+    // Background color when state is "On"
     property color bStateOnColor: "white"
+    // Text color when state is "On"
     property color bStateOnTextColor: "black"
+    // if true -> text becomes bold when state is "On"
     property bool bStateOnBoldText: true
 
+    // Use for button toggle. Works only if bCanToggle = true
+    function fToggle() {
+        if(isButtonOn) {
+            fSwitchOff()
+        } else {
+            fSwitchOn()
+        }
+    }
 
+    // Use for button switch on. Works only if bCanToggle = true
+    function fSwitchOn() {
+        if(bCanToggle) {
+            privatevariables.pbOn = true
+        }
+    }
+
+    // Use for button switch off. Works only if bCanToggle = true
+    function fSwitchOff() {
+        if(bCanToggle) {
+            privatevariables.pbOn = false
+        }
+    }
 
     Rectangle {
         id: background
@@ -58,14 +85,8 @@ Item {
 
 
         Text {
-            id: text
+            id: buttonText
             anchors.centerIn: parent
-            text: {
-                if(bIsCheckBox) {
-                    return ""
-                }
-                return "Button"
-            }
         }
 
         MouseArea {
@@ -83,26 +104,7 @@ Item {
         }
     }
 
-    property bool pButtonOn: false
 
-    function fToggle() {
-        if(isButtonOn) {
-            fSwitchOff()
-        } else {
-            fSwitchOn()
-        }
-    }
-
-    function fSwitchOn() {
-        if(bCanToggle) {
-            privatevariables.pbOn = true
-        }
-    }
-    function fSwitchOff() {
-        if(bCanToggle) {
-            privatevariables.pbOn = false
-        }
-    }
 
     states: [
         State {
@@ -129,7 +131,7 @@ Item {
                 color: bStateOnColor
             }
             PropertyChanges {
-                target: text
+                target: buttonText
                 font.bold: bStateOnBoldText
                 color: bStateOnTextColor
             }

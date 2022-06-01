@@ -16,15 +16,32 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    // Detects type for creating in qml.
     qmlRegisterType<WorkersListModel>("Model",1,0,"WorkersModel");
 
+    // Detects type for reading in qml.
     qmlRegisterUncreatableType<WorkersList>("Model",1,0,"WorkersList",
                                           QStringLiteral("This object should not be created in qml"));
 
+    qmlRegisterUncreatableType<Worker>("Model",1,0,"Worker",
+                                          QStringLiteral("This object should not be created in qml"));
 
-    WorkersList w_list;
+    qmlRegisterUncreatableType<JSQVariantConverter>("Converter",1,0,"JSQVariantConverter",
+                                          QStringLiteral("This object should not be created in qml"));
 
-    engine.rootContext()->setContextProperty("workersList", &w_list);
+    // Active workers list
+    WorkersList activeWorkers;
+    // Fired workers list
+    WorkersList firedWorkers;
+
+    JSQVariantConverter converter;
+
+    // Detects activeWorkers variable for qml.
+    engine.rootContext()->setContextProperty("activeWorkersList", &activeWorkers);
+    // Detects firedWorkers variable for qml.
+    engine.rootContext()->setContextProperty("firedWorkersList", &firedWorkers);
+
+    engine.rootContext()->setContextProperty("Qvar", &converter);
 
     //    QCustomPlot* plot = new QCustomPlot();
     //    QVector<double> x(101), y(101); // initialize with entries 0..100

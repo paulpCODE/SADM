@@ -1,18 +1,26 @@
 import QtQuick 2.0
 
 Item {
-
+    // if true - picker shows on top of the button. false - bottom.
     property bool dPickerOnTop: true
+    // contains current date in picker
+    property date currentDate
+    // sets to true if date was changed
+    property bool isDateChanged: false
 
-    property date dModelDate: new Date()
+    function setDate(date) {
+        currentDate = date
 
-    readonly property string dDate: button.bText.text
+        datepicker.set(currentDate)
+        button.bText.text = Qt.formatDate(currentDate, 'd/MM/yyyy')
+        isDateChanged = false
+    }
+
 
     BUTTON {
         id: button
         anchors.fill: parent
         bCanToggle: true
-        bText.text: Qt.formatDate(dModelDate, 'd.MM.yyyy')
         bBorderWidth: 1
 
         Component.onCompleted: {
@@ -43,12 +51,17 @@ Item {
                 anchors.fill: parent
 
                 Component.onCompleted: {
-                    set(dModelDate)
                     clicked.connect(dateChosen)
                 }
 
                 function dateChosen(chosenDate) {
-                    button.bText.text = Qt.formatDate(chosenDate, 'd.MM.yyyy')
+                    if(currentDate !== chosenDate) {
+                        currentDate = chosenDate
+                        button.bText.text = Qt.formatDate(currentDate, 'd.MM.yyyy')
+
+                        isDateChanged = true
+                    }
+
                     button.fSwitchOff()
                 }
             }

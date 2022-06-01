@@ -1,14 +1,18 @@
 import QtQuick 2.0
 
+// Class for calendar with pickable date. Uses by DATEINPUT.
+
 ListView {
     id: root
 
  // public
+    // Sets date to calendar
     function set(date) { // new Date(2019, 10 - 1, 4)
         selectedDate = new Date(date)
         positionViewAtIndex((selectedDate.getFullYear()) * 12 + selectedDate.getMonth(), ListView.Center) // index from month year
     }
 
+    // Emits when date was chosen.
     signal clicked(date date);  // onClicked: print('onClicked', date.toDateString())
 
  // private

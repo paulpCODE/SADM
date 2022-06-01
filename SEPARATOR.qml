@@ -1,7 +1,9 @@
 import QtQuick 2.0
 
-Item {
+// Simple separator (Rectangle).
 
+Item {
+    // Separator color
     property color sColor: "black"
 
     Rectangle {

@@ -4,32 +4,49 @@
 #include <QObject>
 #include <worker.h>
 #include <QVector>
+#include <QModelIndex>
 
 class WorkersList : public QObject
 {
     Q_OBJECT
 
 private:
+    // List of workers
     QVector<Worker*> m_Workers;
 
 public:
     explicit WorkersList(QObject * parent = nullptr) : QObject(parent) {};
     ~WorkersList();
 
+    // Sets worker at index. Only if ids equals. Uses by model.
     bool setWorkerAt(int index, Worker* worker);
+    // Getter for m_Workers
     const QVector<Worker*>& workersList() const;
 
+    Q_INVOKABLE int size() const;
+
 signals:
+    // Emits before worker added to list. Uses by model.
     void preWorkerAdded();
+    // Emits after worker added to list. Uses by model.
     void postWorkerAdded();
-    //void preWorkerFired(int index);
-    //void postWorkerFired();
+    // Emits before worker deleted from list. Uses by model.
+    void preWorkerDeleted(int index);
+    // Emits after worker deleted from list. Uses by model.
+    void postWorkerDeleted();
 
+// Slots. Uses in qml.
 public slots:
-
+    // Adds new worker to list.
     void addWorker();
-    //void fireWorker(int index);
+    // Move worker to another list
+    void moveToList(const QModelIndex& index, WorkersList& list);
+    // Deletes worker from list and clears memory
+    void forceDelete(const QModelIndex& index);
 
+private:
+    // Deletes worker from list.
+    void deleteWorker(const QModelIndex& index);
 };
 
 #endif // WORKERSLIST_H

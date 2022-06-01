@@ -57,6 +57,11 @@ WorkerBuilder *const Worker::buildNewWorker()
     return WorkerBuilder::build();
 }
 
+Worker::WorkerFireReason Worker::FireReason() const
+{
+    return m_FireReason;
+}
+
 WorkerBuilder *const Worker::changeWorker(Worker *worker)
 {
     return WorkerBuilder::build(worker);
@@ -118,6 +123,12 @@ WorkerBuilder *const WorkerBuilder::setEmploymentDate(const QDate &employmentDat
 WorkerBuilder * const WorkerBuilder::setFireDate(const QDate &fireDate)
 {
     m_BuildedWorker->m_FireDate = fireDate;
+    return this;
+}
+
+WorkerBuilder * const WorkerBuilder::setFireReason(Worker::WorkerFireReason reason)
+{
+    m_BuildedWorker->m_FireReason = reason;
     return this;
 }
 
