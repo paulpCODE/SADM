@@ -55,15 +55,15 @@ private:
     explicit Worker(QObject * parent = nullptr) :
         QObject(parent),
         m_ID(0),
-        m_Name("Vasya","Petya"),
+        m_Name("",""),
         m_Status(ACTIVE),
         m_Gender('M'),
-        m_BirthDate(),
-        m_EmploymentDate(),
-        m_FireDate(),
-        m_Salary(10000),
+        m_BirthDate(QDate::currentDate()),
+        m_EmploymentDate(QDate::currentDate()),
+        m_FireDate(QDate::currentDate()),
+        m_Salary(0),
         m_FireReason(NONE),
-        m_AdditionalInfo("Abra kadabra")
+        m_AdditionalInfo("")
     {};
 
     Worker(const Worker&) = delete;

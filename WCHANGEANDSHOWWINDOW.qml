@@ -1,9 +1,5 @@
 import QtQuick 2.0
 
-import "modelfunctions.js" as MF
-import "buttonsfunctions.js" as BF
-
-
 // Worker Change and Show Window
 
 Item {
@@ -20,6 +16,10 @@ Item {
     // Shows WCHANGEWINDOW. Hides WSHOWWINDOW.
     function wchangeMode() {
         wshowwindow.visible = false
+    }
+
+    function isChangeMode() {
+        return wchangewindow.visible
     }
 
     WSHOWWINDOW {

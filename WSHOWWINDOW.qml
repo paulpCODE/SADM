@@ -6,7 +6,6 @@ import "buttonsfunctions.js" as Buttons
 // Worker Show Window
 
 Item {
-
     //Worker Status. If true -> worker Active. false -> Fired. Need for fire info.
     property bool mIsActive: true
 
@@ -28,6 +27,12 @@ Item {
     property alias mSalary : mData_salary_text.text
     // Model Additional Info
     property alias mAdditionalInfo : mData_additionalinfo_area.text
+
+
+    // Change Button Ref
+    property alias changeButtonRef: changeButton
+    // Fire Button Ref
+    property alias fireButtonRef: fireButton
 
     Rectangle {
         id: background
@@ -270,6 +275,8 @@ Item {
             bBorderWidth: 1
             bBorderRadius: 5
 
+            visible: mIsActive
+
             Component.onCompleted: {
                 sButtonChecked.connect(Buttons.fireButtonImplementation)
             }
@@ -287,11 +294,31 @@ Item {
             bBorderWidth: 1
             bBorderRadius: 5
 
+            visible: mIsActive
+
             Component.onCompleted: {
                 sButtonChecked.connect(Buttons.changeButtonImplementation)
             }
         }
-    }
 
+        BUTTON {
+            id: forceDeleteButton
+            bCanToggle: false
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.margins: 10
+            width: 70
+            height: 22
+            bText: "Force delete"
+            bBorderWidth: 1
+            bBorderRadius: 5
+
+            visible: mIsActive ? false : true
+
+            Component.onCompleted: {
+                sButtonChecked.connect(Buttons.forceDeleteButtonImplementation)
+            }
+        }
+    }
 }
 

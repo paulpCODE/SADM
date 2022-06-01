@@ -12,7 +12,7 @@ Item {
         currentDate = date
 
         datepicker.set(currentDate)
-        button.bText.text = Qt.formatDate(currentDate, 'd/MM/yyyy')
+        button.bText = Qt.formatDate(currentDate, 'd/MM/yyyy')
         isDateChanged = false
     }
 
@@ -57,7 +57,7 @@ Item {
                 function dateChosen(chosenDate) {
                     if(currentDate !== chosenDate) {
                         currentDate = chosenDate
-                        button.bText.text = Qt.formatDate(currentDate, 'd.MM.yyyy')
+                        button.bText = Qt.formatDate(currentDate, 'd.MM.yyyy')
 
                         isDateChanged = true
                     }

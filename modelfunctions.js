@@ -1,96 +1,126 @@
 
-.import Model 1.0 as M
-.import Converter 1.0 as Qvar
+.import Model 1.0 as CPP
+
+.import WorkerEnums 1.0 as Enums
 
 //Contains functions for model
 
+//Change
+
 function updateShowWindow() {
-    if(list.currentIndex === -1) {
+
+    wchangeandshow.wshowMode()
+
+    if(wlist.listRef.currentIndex === -1) {
         return
     }
 
-    var modelIndex = model.index(list.currentIndex, 0)
+    var modelIndex = model.index(wlist.listRef.currentIndex, 0)
 
-    wchangeandshowwindow.wshow.mFirstName = Qvar.toString(model.data(modelIndex, M.WorkersModel.FirstNameRole))
-    wchangeandshowwindow.wshow.mLastName = Qvar.toString(model.data(modelIndex, M.WorkersModel.LastNameRole))
-    var gender = Qvar.toString(model.data(modelIndex, M.WorkersModel.GenderRole))
+    wchangeandshow.wshow.mFirstName = model.stringData(
+                modelIndex, CPP.WorkersModel.FirstNameRole)
+
+    wchangeandshow.wshow.mLastName = model.stringData(
+                modelIndex, CPP.WorkersModel.LastNameRole)
+
+    var gender = model.stringData(
+                modelIndex, CPP.WorkersModel.GenderRole)
     if(gender === "M") {
-        wchangeandshowwindow.wshow.mGender = "Male"
+        wchangeandshow.wshow.mGender = "Male"
     } else {
-        wchangeandshowwindow.wshow.mGender = "Female"
-    }
-    wchangeandshowwindow.wshow.mBirthDate = Qt.formatDate(Qvar.toDate(model.data(modelIndex, M.WorkersModel.BirthDateRole)), 'd/MM/yyyy')
-    wchangeandshowwindow.wshow.mEmploymentDate = Qt.formatDate(Qvar.toDate(model.data(modelIndex, M.WorkersModel.EmploymentDateRole)), 'd/MM/yyyy')
-    wchangeandshowwindow.wshow.mSalary = Qvar.toInt(model.data(modelIndex, M.WorkersModel.SalaryRole))
-    wchangeandshowwindow.wshow.mAdditionalInfo = Qvar.toString(model.data(modelIndex, M.WorkersModel.AdditionalInfoRole))
-
-    if(model.data(modelIndex, M.WorkersModel.WorkerStatusRole) === M.Worker.WorkerStatus.ACTIVE) {
-        wchangeandshowwindow.wshow.mIsActive = true
-    } else {
-        wchangeandshowwindow.wshow.mIsActive = false
+        wchangeandshow.wshow.mGender = "Female"
     }
 
-    if(!wchangeandshowwindow.wshow.mIsActive) {
-        wchangeandshowwindow.wshow.mFireDate = Qt.formatDate(Qvar.toDate(model.data(modelIndex, M.WorkersModel.FireDateRole)), 'd/MM/yyyy')
+    wchangeandshow.wshow.mBirthDate = Qt.formatDate(
+                model.dateData(modelIndex, CPP.WorkersModel.BirthDateRole), 'd/MM/yyyy')
 
-        var firereason = model.data(modelIndex, M.WorkersModel.FireReasonRole)
-        if(firereason === M.Worker.WorkerFireReason.NECESSARY) {
-            wchangeandshowwindow.wshow.mFireReason = "Necessary"
-        } else if(firereason === M.Worker.WorkerFireReason.EXCESSIVE) {
-            wchangeandshowwindow.wshow.mFireReason = "Excessive"
+    wchangeandshow.wshow.mEmploymentDate = Qt.formatDate(
+                model.dateData(modelIndex, CPP.WorkersModel.EmploymentDateRole), 'd/MM/yyyy')
+
+    wchangeandshow.wshow.mSalary = model.stringData(
+                modelIndex, CPP.WorkersModel.SalaryRole)
+
+    wchangeandshow.wshow.mAdditionalInfo = model.stringData(
+                modelIndex, CPP.WorkersModel.AdditionalInfoRole)
+
+    console.log(model.intData(modelIndex, CPP.WorkersModel.WorkerStatusRole))
+    console.log(parseInt(Enums.WorkerStatus.ACTIVE))
+
+    if(model.intData(modelIndex, CPP.WorkersModel.WorkerStatusRole) === Enums.WorkerStatus.ACTIVE) {
+        wchangeandshow.wshow.mIsActive = true
+    } else {
+        wchangeandshow.wshow.mIsActive = false
+    }
+
+    if(!wchangeandshow.wshow.mIsActive) {
+        wchangeandshow.wshow.mFireDate = Qt.formatDate(
+                    model.dateData(modelIndex, CPP.WorkersModel.FireDateRole), 'd/MM/yyyy')
+
+        var firereason = model.intData(modelIndex, CPP.WorkersModel.FireReasonRole)
+        if(firereason === Enums.WorkerFireReason.NECESSARY) {
+            wchangeandshow.wshow.mFireReason = "Necessary"
+        } else if(firereason === Enums.WorkerFireReason.EXCESSIVE) {
+            wchangeandshow.wshow.mFireReason = "Excessive"
         } else {
-            wchangeandshowwindow.wshow.mFireReason = ""
+            wchangeandshow.wshow.mFireReason = ""
         }
     }
-
-    wchangeandshowwindow.wshowMode()
 }
 
 function updateChangeWindow() {
-    if(list.currentIndex === -1) {
+
+    wchangeandshow.wchangeMode()
+
+    if(wlist.listRef.currentIndex === -1) {
         return
     }
 
-    var modelIndex = model.index(list.currentIndex, 0)
+    var modelIndex = model.index(wlist.listRef.currentIndex, 0)
 
-    wchangeandshowwindow.wchange.mFirstName = Qvar.toString(model.data(modelIndex, M.WorkersModel.FirstNameRole))
-    wchangeandshowwindow.wchange.mLastName = Qvar.toString(model.data(modelIndex, M.WorkersModel.LastNameRole))
-    var gender = Qvar.toString(model.data(modelIndex, M.WorkersModel.GenderRole))
+    wchangeandshow.wchange.mFirstName = model.stringData(
+                modelIndex, CPP.WorkersModel.FirstNameRole)
+
+    wchangeandshow.wchange.mLastName = model.stringData(
+                modelIndex, CPP.WorkersModel.LastNameRole)
+
+    var gender = model.stringData(
+                modelIndex, CPP.WorkersModel.GenderRole)
     if(gender === "M") {
-        wchangeandshowwindow.wchange.isMale = true
+        wchangeandshow.wchange.isMale = true
     } else {
-        wchangeandshowwindow.wchange.isMale = false
+        wchangeandshow.wchange.isMale = false
     }
-    wchangeandshowwindow.wchange.mBirthDateInput.setDate(Qvar.toDate(model.data(modelIndex, M.WorkersModel.BirthDateRole)))
-    wchangeandshowwindow.wchange.mEmploymentDateInput.setDate(Qvar.toDate(qsTr(model.data(modelIndex, M.WorkersModel.EmploymentDateRole))))
-    wchangeandshowwindow.wchange.mSalary = Qvar.toInt(model.data(modelIndex, M.WorkersModel.SalaryRole))
-    wchangeandshowwindow.wchange.mAdditionalInfo = Qvar.toString(model.data(modelIndex, M.WorkersModel.AdditionalInfoRole))
 
-    wchangeandshowwindow.wchange.update()
+    wchangeandshow.wchange.mBirthDateInput.setDate(model.dateData(
+                                                       modelIndex, CPP.WorkersModel.BirthDateRole))
 
-    wchangeandshowwindow.wchangeMode()
+    wchangeandshow.wchange.mEmploymentDateInput.setDate(model.dateData(
+                                                            modelIndex, CPP.WorkersModel.EmploymentDateRole))
 
-    console.log(wchangeandshowwindow.wchange.mFirstName)
-    console.log(wchangeandshowwindow.wchange.mLastName)
-    console.log(gender)
-    console.log(wchangeandshowwindow.wchange.mSalary)
+    wchangeandshow.wchange.mSalary = model.stringData(
+                modelIndex, CPP.WorkersModel.SalaryRole)
+
+    wchangeandshow.wchange.mAdditionalInfo = model.stringData(
+                modelIndex, CPP.WorkersModel.AdditionalInfoRole)
+
+    wchangeandshow.wchange.update()
 }
 
 function updateModel() {
-    if(list.currentIndex === -1) {
+    if(wlist.listRef.currentIndex === -1) {
         return
     }
 
-    if(wchangeandshowwindow.wchange.isChanged) {
-        var modelIndex = model.index(list.currentIndex, 0)
+    if(wchange.isChanged) {
+        var modelIndex = model.index(wlist.listRef.currentIndex, 0)
 
-        model.setData(modelIndex, qsTr(wchangeandshowwindow.wchange.mFirstName), M.WorkersModel.FirstNameRole)
-        model.setData(modelIndex, qsTr(wchangeandshowwindow.wchange.mLastName), M.WorkersModel.LastNameRole)
-        model.setData(modelIndex, wchangeandshowwindow.wchange.isMale, M.WorkersModel.GenderRole)
-        model.setData(modelIndex, wchangeandshowwindow.wchange.mBirthDateInput.currentDate, M.WorkersModel.BirthDateRole)
-        model.setData(modelIndex, wchangeandshowwindow.wchange.mEmploymentDateInput.currentDate, M.WorkersModel.EmploymentDateRole)
-        model.setData(modelIndex, qsTr(wchangeandshowwindow.wchange.mSalary), M.WorkersModel.SalaryRole)
-        model.setData(modelIndex, qsTr(wchangeandshowwindow.wchange.mAdditionalInfo), M.WorkersModel.AdditionalInfoRole)
+        model.setData(modelIndex, wchangeandshow.wchange.mFirstName, CPP.WorkersModel.FirstNameRole)
+        model.setData(modelIndex, wchangeandshow.wchange.mLastName, CPP.WorkersModel.LastNameRole)
+        model.setData(modelIndex, wchangeandshow.wchange.isMale, CPP.WorkersModel.GenderRole)
+        model.setData(modelIndex, wchangeandshow.wchange.mBirthDateInput.currentDate, CPP.WorkersModel.BirthDateRole)
+        model.setData(modelIndex, wchangeandshow.wchange.mEmploymentDateInput.currentDate, CPP.WorkersModel.EmploymentDateRole)
+        model.setData(modelIndex, wchangeandshow.wchange.mSalary, CPP.WorkersModel.SalaryRole)
+        model.setData(modelIndex, wchangeandshow.wchange.mAdditionalInfo, CPP.WorkersModel.AdditionalInfoRole)
     }
 }
 
@@ -102,20 +132,26 @@ function addActiveWorker() {
     activeWorkersList.addWorker()
 }
 
-function moveToFired(index) {
-    if(index === -1) {
+function moveToFired() {
+    if(wlist.listRef.currentIndex === -1) {
         return
     }
 
-    activeWorkersList.moveToList(index, firedWorkersList)
+    var modelIndex = model.index(wlist.listRef.currentIndex, 0)
+
+    model.setData(modelIndex, Enums.WorkerStatus.FIRED, CPP.WorkersModel.WorkerStatusRole)
+
+    activeWorkersList.moveToList(modelIndex, firedWorkersList)
 }
 
-function forceDelete(index) {
-    if(index === -1) {
+function forceDelete() {
+    if(wlist.listRef.currentIndex === -1) {
         return
     }
 
-    model.list.forceDelete(index)
+    var modelIndex = model.index(wlist.listRef.currentIndex, 0)
+
+    model.list.forceDelete(modelIndex)
 }
 
 function toggleListToActive() {

@@ -1,53 +1,79 @@
 
-.import "modelfunctions.js" as ModelF
+.import "modelfunctions.js" as ModelFuncs
 
 // Contains buttons Implementation
 
 function activeButtonImplementation() {
-    ModelF.toggleListToActive()
+    list.changeIndex(-1)
+    ModelFuncs.toggleListToActive()
+    if(ModelFuncs.rowCount() !== 0) {
+        list.changeIndex(0)
+    }
 }
 
 function firedButtonImplementation() {
-    ModelF.toggleListToFired()
+    list.changeIndex(-1)
+    ModelFuncs.toggleListToFired()
+    if(ModelFuncs.rowCount() !== 0) {
+        list.changeIndex(0)
+    }
 }
 
 function addButtonImplementation() {
     if(addButton.isButtonOn) {
-        ModelF.addActiveWorker()
+        ModelFuncs.addActiveWorker()
         list.changeIndex(0)
-        ModelF.updateChangeWindow()
+        ModelFuncs.updateChangeWindow()
     }
     if(!addButton.isButtonOn) {
-        activeWorkersList.forceDelete(model.index(list.currentIndex, 0))
-        list.changeIndex(list.currentIndex - 1)
+        ModelFuncs.forceDelete(list.currentIndex)
+        if(ModelFuncs.rowCount() === 0) {
+            list.changeIndex(list.currentIndex - 1)
+        }
+        ModelFuncs.updateShowWindow()
     }
 }
 
 function saveButtonImplementation() {
-    ModelF.updateModel()
-    ModelF.updateShowWindow()
+    ModelFuncs.updateModel()
+    wlist.addButtonRef.fSwitchOff()
+    ModelFuncs.updateShowWindow()
 }
 
 function cancelButtonImplementation() {
-    if(addButton.isButtonOn) {
-        addButton.sButtonChecked()
+    if(wlist.addButtonRef.isButtonOn) {
+        wlist.addButtonRef.sButtonChecked()
     } else {
-        wchangeandshowwindow.wshowMode()
+        wchangeandshow.wshowMode()
     }
 }
 
 function changeButtonImplementation() {
-    ModelF.updateChangeWindow()
+    ModelFuncs.updateChangeWindow()
 }
 
 function fireButtonImplementation() {
+    ModelFuncs.moveToFired()
+    if(wlist.listRef.currentIndex === ModelFuncs.rowCount()) {
+        wlist.listRef.changeIndex(wlist.listRef.currentIndex - 1)
+    }
+    ModelFuncs.updateShowWindow()
+}
 
+function forceDeleteButtonImplementation() {
+    ModelFuncs.forceDelete()
+    if(wlist.listRef.currentIndex === ModelFuncs.rowCount()) {
+        wlist.listRef.changeIndex(wlist.listRef.currentIndex - 1)
+    }
+    ModelFuncs.updateShowWindow()
 }
 
 function sPreIndexChangedImplementation() {
-
+    if(wchangeandshow.isChangeMode()) {
+        cancelButtonImplementation()
+    }
 }
 
 function sPostIndexChangedImplementation() {
-    ModelF.updateShowWindow()
+    ModelFuncs.updateShowWindow()
 }

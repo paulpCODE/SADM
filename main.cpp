@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    qRegisterMetaType<WorkersList>("WorkersList");
+
     // Detects type for creating in qml.
     qmlRegisterType<WorkersListModel>("Model",1,0,"WorkersModel");
 
@@ -23,10 +25,10 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<WorkersList>("Model",1,0,"WorkersList",
                                           QStringLiteral("This object should not be created in qml"));
 
-    qmlRegisterUncreatableType<Worker>("Model",1,0,"Worker",
+    qmlRegisterUncreatableType<Worker::WorkerStatus>("WorkerEnums",1,0,"WorkerStatus",
                                           QStringLiteral("This object should not be created in qml"));
 
-    qmlRegisterUncreatableType<JSQVariantConverter>("Converter",1,0,"JSQVariantConverter",
+    qmlRegisterUncreatableType<Worker::WorkerFireReason>("WorkerEnums", 1, 0, "WorkerFireReason",
                                           QStringLiteral("This object should not be created in qml"));
 
     // Active workers list
@@ -34,14 +36,10 @@ int main(int argc, char *argv[])
     // Fired workers list
     WorkersList firedWorkers;
 
-    JSQVariantConverter converter;
-
     // Detects activeWorkers variable for qml.
     engine.rootContext()->setContextProperty("activeWorkersList", &activeWorkers);
     // Detects firedWorkers variable for qml.
     engine.rootContext()->setContextProperty("firedWorkersList", &firedWorkers);
-
-    engine.rootContext()->setContextProperty("Qvar", &converter);
 
     //    QCustomPlot* plot = new QCustomPlot();
     //    QVector<double> x(101), y(101); // initialize with entries 0..100

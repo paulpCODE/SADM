@@ -120,17 +120,17 @@ void WorkersListModel::setList(WorkersList *newList)
     endResetModel();;
 }
 
-QDate JSQVariantConverter::toDate(const QVariant &value)
+QString WorkersListModel::stringData(const QModelIndex &index, int role)
 {
-    return value.toDate();
+    return data(index, role).toString();
 }
 
-QString JSQVariantConverter::toString(const QVariant &value)
+QDate WorkersListModel::dateData(const QModelIndex &index, int role)
 {
-    return value.toString();
+    return data(index, role).toDate();
 }
 
-int JSQVariantConverter::toInt(const QVariant &value)
+int WorkersListModel::intData(const QModelIndex &index, int role)
 {
-    return value.toInt();
+    return data(index, role).toInt();
 }

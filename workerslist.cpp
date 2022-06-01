@@ -46,18 +46,26 @@ void WorkersList::addWorker()
     emit postWorkerAdded();
 }
 
-void WorkersList::moveToList(const QModelIndex &index, WorkersList &list)
+void WorkersList::moveToList(const QModelIndex &index, QJSValue &list)
 {
     if(index.row() < 0 || index.row() > m_Workers.size() - 1) {
         qDebug() << "Index out of bounds in WorkersList::moveToList";
         return;
     }
-    if(&list == this) {
+
+    WorkersList* listptr = qobject_cast<WorkersList*>(list.toQObject());
+
+    if(!listptr) {
+        qDebug() << "listptr is null in WorkersList::moveToList";
+        return;
+    }
+
+    if(listptr == this) {
         qDebug() << "The list == this in WorkersList::moveToList";
         return;
     }
 
-    list.m_Workers.push_front(m_Workers.value(index.row()));
+    listptr->m_Workers.push_front(m_Workers.value(index.row()));
 
     deleteWorker(index);
 }

@@ -5,6 +5,7 @@
 #include <worker.h>
 #include <QVector>
 #include <QModelIndex>
+#include <QJSValue>
 
 class WorkersList : public QObject
 {
@@ -40,7 +41,7 @@ public slots:
     // Adds new worker to list.
     void addWorker();
     // Move worker to another list
-    void moveToList(const QModelIndex& index, WorkersList& list);
+    void moveToList(const QModelIndex& index, QJSValue& list);
     // Deletes worker from list and clears memory
     void forceDelete(const QModelIndex& index);
 

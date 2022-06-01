@@ -12,9 +12,9 @@
 //    ~JSQVariantConverter() {}
 
 //public slots:
-//    QDate toDate(const QVariant& value);
-//    QString toString(const QVariant& value);
-//    int toInt(const QVariant& value);
+//    static QDate toDate(const QVariant& value);
+//    static QString toString(const QVariant& value);
+//    static int toInt(const QVariant& value);
 //};
 
 class WorkersListModel : public QAbstractListModel
@@ -60,9 +60,12 @@ public:
     // Setter from UPROPERTY
     void setList(WorkersList *newList);
 
-//    QString getFirstName(const QModelIndex &index);
-//    QString getLastName(const QModelIndex &index);
-//    QString getGender(const QModelIndex &index);
-//    QDate getBirthDate(const QModelIndex &index);
+    //data(index, role).toString()
+    Q_INVOKABLE QString stringData(const QModelIndex& index, int role);
+    //data(index, role).toDate()
+    Q_INVOKABLE QDate dateData(const QModelIndex& index, int role);
+    //data(index, role).toInt()
+    Q_INVOKABLE int intData(const QModelIndex& index, int role);
+};
 
 #endif // WORKERSLISTMODEL_H

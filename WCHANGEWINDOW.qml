@@ -6,7 +6,6 @@ import "buttonsfunctions.js" as Buttons
 // Worker Change Window
 
 Item {
-
     // Model First Name
     property alias mFirstName: fname_input.text
     // Model Last Name
@@ -24,6 +23,11 @@ Item {
 
     // If any data changed -> true
     property bool isChanged: false
+
+    //Cancel Button Ref
+    property alias cancelButtonRef: cancelButton
+    //Save Button Ref
+    property alias saveButtonRef: saveButton
 
     //CALL AFTER MODEL UPDATE
     function update() {

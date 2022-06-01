@@ -1,11 +1,8 @@
 import QtQuick 2.0
 
-import "modelfunctions.js" as ModelFuncs
-import Model 1.0
-
 Item {
     // Model reference
-    property alias model: workers
+    property alias model: listview.model
     // Current index of list. ReadOnly. For Change use changeIndex function
     readonly property alias currentIndex: listview.currentIndex
     // Emits before currentIndex changed
@@ -31,10 +28,7 @@ Item {
 
         currentIndex: -1
 
-        model: WorkersModel {
-            id: workers
-            list: activeWorkersList
-        }
+        //model
 
         delegate: DELEGATE {
             width: listview.width

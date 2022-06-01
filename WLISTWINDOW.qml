@@ -5,11 +5,10 @@ import "buttonsfunctions.js" as Buttons
 
 Item {
     // LIST ref
-    property alias list: wlist
-    // LIST model ref
-    property alias model: wlist.model
+    property alias listRef: list
+
     // LIST add button ref
-    property alias addButton: addButton
+    property alias addButtonRef: addButton
 
     Item {
         id: switcherItem
@@ -43,7 +42,7 @@ Item {
         anchors.bottom: parent.bottom
 
         LIST {
-            id: wlist
+            id: list
             anchors.fill: parent
 
             Component.onCompleted: {
