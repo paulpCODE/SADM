@@ -15,5 +15,7 @@
         <file>buttonsfunctions.js</file>
         <file>WCHANGEANDSHOWWINDOW.qml</file>
         <file>WLISTWINDOW.qml</file>
+        <file>FIREWINDOW.qml</file>
+        <file>TOPPANNEL.qml</file>
     </qresource>
 </RCC>

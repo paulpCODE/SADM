@@ -33,6 +33,8 @@ Item {
     property alias changeButtonRef: changeButton
     // Fire Button Ref
     property alias fireButtonRef: fireButton
+    // fire menu ref
+    property alias fireMenuRef: fireMenu
 
     Rectangle {
         id: background
@@ -265,20 +267,27 @@ Item {
 
         BUTTON {
             id: fireButton
-            bCanToggle: false
+            bCanToggle: true
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             anchors.margins: 10
-            width: 50
-            height: 22
+            width: 80
+            height: 25
             bText: "Fire"
             bBorderWidth: 1
-            bBorderRadius: 5
+            bBorderRadius: 10
+            bColor: "#A7C7E7"
+            bEnteredColor: "#84b3e3"
+            bPressedColor: "#2288f0"
+            bBorderColor: "#042647"
 
             visible: mIsActive
 
             Component.onCompleted: {
-                sButtonChecked.connect(Buttons.fireButtonImplementation)
+                sButtonChecked.connect(function() {
+                    fToggle()
+                    fireMenu.update()
+                })
             }
         }
 
@@ -288,11 +297,15 @@ Item {
             anchors.right: fireButton.left
             anchors.verticalCenter: fireButton.verticalCenter
             anchors.rightMargin: 10
-            width: 50
-            height: 22
+            width: 80
+            height: 25
             bText: "Change"
             bBorderWidth: 1
-            bBorderRadius: 5
+            bBorderRadius: 10
+            bColor: "#A7C7E7"
+            bEnteredColor: "#84b3e3"
+            bPressedColor: "#2288f0"
+            bBorderColor: "#042647"
 
             visible: mIsActive
 
@@ -307,16 +320,55 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             anchors.margins: 10
-            width: 70
-            height: 22
+            width: 80
+            height: 25
             bText: "Force delete"
             bBorderWidth: 1
-            bBorderRadius: 5
+            bBorderRadius: 10
+            bColor: "#e03c36"
+            bEnteredColor: "#de332c"
+            bPressedColor: "#db1c14"
+            bBorderColor: "#470404"
 
             visible: mIsActive ? false : true
 
             Component.onCompleted: {
                 sButtonChecked.connect(Buttons.forceDeleteButtonImplementation)
+            }
+        }
+
+        Item {
+            id: fireMenuItem
+            anchors.fill: parent
+
+            visible: fireButton.isButtonOn
+
+            Rectangle {
+                anchors.fill: parent
+                opacity: 0.8
+                MouseArea {
+                    anchors.fill: parent
+                    z: fireButton.z - 1
+                    onClicked: {
+                        fireButton.fSwitchOff()
+                    }
+                }
+            }
+
+
+            FIREWINDOW {
+                id: fireMenu
+                anchors.centerIn: parent
+                width: 200
+                height: 200
+
+                Component.onCompleted: {
+                    fireCancelButtonRef.sButtonChecked.connect(fireButton.fSwitchOff)
+                    fireAcceptButtonRef.sButtonChecked.connect(function() {
+                        fireButton.fSwitchOff()
+                        Buttons.fireButtonImplementation()
+                    })
+                }
             }
         }
     }

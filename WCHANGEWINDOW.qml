@@ -60,7 +60,7 @@ Item {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 placeholderText: "First Name"
-                width: 200
+                width: 350
                 maximumLength: 30
                 font.pixelSize: 20
 
@@ -74,7 +74,7 @@ Item {
                 anchors.left: parent.left
                 anchors.topMargin: 6
                 placeholderText: "Last Name"
-                width: 200
+                width: 350
                 maximumLength: 30
                 font.pixelSize: 20
 
@@ -106,6 +106,7 @@ Item {
                 callSignalOnlyIfButtonOff: true
                 bBorderWidth: 1
                 bStateOnColor: "#A7C7E7"
+                bBorderColor: "#042647"
 
                 Component.onCompleted: {
                     sButtonChecked.connect(fSwitchOn)
@@ -146,6 +147,7 @@ Item {
                 callSignalOnlyIfButtonOff: true
                 bBorderWidth: 1
                 bStateOnColor: "#A7C7E7"
+                bBorderColor: "#042647"
 
                 Component.onCompleted: {
                     sButtonChecked.connect(fSwitchOn)
@@ -334,11 +336,11 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             anchors.margins: 10
-            width: 50
-            height: 22
+            width: 80
+            height: 25
             bText: "Cancel"
             bBorderWidth: 1
-            bBorderRadius: 5
+            bBorderRadius: 10
 
             Component.onCompleted: {
                 sButtonChecked.connect(Buttons.cancelButtonImplementation)
@@ -351,11 +353,15 @@ Item {
             anchors.right: cancelButton.left
             anchors.verticalCenter: cancelButton.verticalCenter
             anchors.rightMargin: 10
-            width: 50
-            height: 22
+            width: 80
+            height: 25
             bText: "Save"
+            bColor: "#A7C7E7"
+            bEnteredColor: "#84b3e3"
+            bPressedColor: "#2288f0"
+            bBorderColor: "#042647"
             bBorderWidth: 1
-            bBorderRadius: 5
+            bBorderRadius: 10
 
             Component.onCompleted: {
                 sButtonChecked.connect(Buttons.saveButtonImplementation)

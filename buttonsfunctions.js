@@ -53,6 +53,7 @@ function changeButtonImplementation() {
 }
 
 function fireButtonImplementation() {
+    ModelFuncs.updateModelFiredInfo()
     ModelFuncs.moveToFired()
     if(wlist.listRef.currentIndex === ModelFuncs.rowCount()) {
         wlist.listRef.changeIndex(wlist.listRef.currentIndex - 1)
@@ -69,6 +70,7 @@ function forceDeleteButtonImplementation() {
 }
 
 function sPreIndexChangedImplementation() {
+    wchangeandshow.wshow.fireButtonRef.fSwitchOff()
     if(wchangeandshow.isChangeMode()) {
         cancelButtonImplementation()
     }

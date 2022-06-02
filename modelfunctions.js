@@ -1,7 +1,7 @@
 
 .import Model 1.0 as CPP
 
-.import WorkerEnums 1.0 as Enums
+.import WorkerClass 1.0 as Enums
 
 //Contains functions for model
 
@@ -43,10 +43,7 @@ function updateShowWindow() {
     wchangeandshow.wshow.mAdditionalInfo = model.stringData(
                 modelIndex, CPP.WorkersModel.AdditionalInfoRole)
 
-    console.log(model.intData(modelIndex, CPP.WorkersModel.WorkerStatusRole))
-    console.log(parseInt(Enums.WorkerStatus.ACTIVE))
-
-    if(model.intData(modelIndex, CPP.WorkersModel.WorkerStatusRole) === Enums.WorkerStatus.ACTIVE) {
+    if(model.intData(modelIndex, CPP.WorkersModel.WorkerStatusRole) === Enums.Worker.ACTIVE) {
         wchangeandshow.wshow.mIsActive = true
     } else {
         wchangeandshow.wshow.mIsActive = false
@@ -57,9 +54,9 @@ function updateShowWindow() {
                     model.dateData(modelIndex, CPP.WorkersModel.FireDateRole), 'd/MM/yyyy')
 
         var firereason = model.intData(modelIndex, CPP.WorkersModel.FireReasonRole)
-        if(firereason === Enums.WorkerFireReason.NECESSARY) {
+        if(firereason === Enums.Worker.NECESSARY) {
             wchangeandshow.wshow.mFireReason = "Necessary"
-        } else if(firereason === Enums.WorkerFireReason.EXCESSIVE) {
+        } else if(firereason === Enums.Worker.EXCESSIVE) {
             wchangeandshow.wshow.mFireReason = "Excessive"
         } else {
             wchangeandshow.wshow.mFireReason = ""
@@ -124,6 +121,22 @@ function updateModel() {
     }
 }
 
+function updateModelFiredInfo() {
+    if(wlist.listRef.currentIndex === -1) {
+        return
+    }
+
+    var modelIndex = model.index(wlist.listRef.currentIndex, 0)
+
+    model.setData(modelIndex, wchangeandshow.wshow.fireMenuRef.mFireInput.currentDate, CPP.WorkersModel.FireDateRole)
+
+    if(wchangeandshow.wshow.fireMenuRef.mIsNecessary) {
+        model.setData(modelIndex, Enums.Worker.NECESSARY, CPP.WorkersModel.FireReasonRole)
+    } else {
+        model.setData(modelIndex, Enums.Worker.EXCESSIVE, CPP.WorkersModel.FireReasonRole)
+    }
+}
+
 function rowCount() {
    return model.list.size()
 }
@@ -139,7 +152,7 @@ function moveToFired() {
 
     var modelIndex = model.index(wlist.listRef.currentIndex, 0)
 
-    model.setData(modelIndex, Enums.WorkerStatus.FIRED, CPP.WorkersModel.WorkerStatusRole)
+    model.setData(modelIndex, Enums.Worker.FIRED, CPP.WorkersModel.WorkerStatusRole)
 
     activeWorkersList.moveToList(modelIndex, firedWorkersList)
 }

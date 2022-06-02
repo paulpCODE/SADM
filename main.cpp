@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qRegisterMetaType<WorkersList>("WorkersList");
+    //qRegisterMetaType<WorkersList>("WorkersList");
 
     // Detects type for creating in qml.
     qmlRegisterType<WorkersListModel>("Model",1,0,"WorkersModel");
@@ -25,10 +25,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<WorkersList>("Model",1,0,"WorkersList",
                                           QStringLiteral("This object should not be created in qml"));
 
-    qmlRegisterUncreatableType<Worker::WorkerStatus>("WorkerEnums",1,0,"WorkerStatus",
-                                          QStringLiteral("This object should not be created in qml"));
-
-    qmlRegisterUncreatableType<Worker::WorkerFireReason>("WorkerEnums", 1, 0, "WorkerFireReason",
+    qmlRegisterUncreatableType<Worker>("WorkerClass",1,0,"Worker",
                                           QStringLiteral("This object should not be created in qml"));
 
     // Active workers list

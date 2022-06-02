@@ -61,6 +61,10 @@ Item {
                 bCanToggle: true
                 bBorderWidth: 1
                 bBorderRadius: 10
+                bColor: "#A7C7E7"
+                bEnteredColor: "#84b3e3"
+                bPressedColor: "#2288f0"
+                bBorderColor: "#042647"
 
                 visible: listsSwitcher.leftButton.isButtonOn ? true : false
 
