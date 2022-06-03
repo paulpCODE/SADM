@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include "workerslistmodel.h"
 #include "workerslist.h"
+#include <sqlmanager.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,9 +15,14 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
+    QCoreApplication::setOrganizationName("PP");
+    QCoreApplication::setApplicationName("SADM");
+
     QQmlApplicationEngine engine;
 
-    //qRegisterMetaType<WorkersList>("WorkersList");
+    // Inits database
+    SQLManager::initWorkersDatabase();
+
 
     // Detects type for creating in qml.
     qmlRegisterType<WorkersListModel>("Model",1,0,"WorkersModel");
@@ -29,9 +35,9 @@ int main(int argc, char *argv[])
                                           QStringLiteral("This object should not be created in qml"));
 
     // Active workers list
-    WorkersList activeWorkers;
+    WorkersList activeWorkers(SQLManager::selectAllActiveWorkersIDs());
     // Fired workers list
-    WorkersList firedWorkers;
+    WorkersList firedWorkers(SQLManager::selectAllFiredWorkersIDs());
 
     // Detects activeWorkers variable for qml.
     engine.rootContext()->setContextProperty("activeWorkersList", &activeWorkers);

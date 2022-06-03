@@ -53,7 +53,6 @@ function changeButtonImplementation() {
 }
 
 function fireButtonImplementation() {
-    ModelFuncs.updateModelFiredInfo()
     ModelFuncs.moveToFired()
     if(wlist.listRef.currentIndex === ModelFuncs.rowCount()) {
         wlist.listRef.changeIndex(wlist.listRef.currentIndex - 1)

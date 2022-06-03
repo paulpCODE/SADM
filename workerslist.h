@@ -6,6 +6,7 @@
 #include <QVector>
 #include <QModelIndex>
 #include <QJSValue>
+#include <QtSql/QSqlQuery>
 
 class WorkersList : public QObject
 {
@@ -17,6 +18,9 @@ private:
 
 public:
     explicit WorkersList(QObject * parent = nullptr) : QObject(parent) {};
+
+    explicit WorkersList(QSqlQuery idsFromDB, QObject * parent = nullptr);
+
     ~WorkersList();
 
     // Sets worker at index. Only if ids equals. Uses by model.

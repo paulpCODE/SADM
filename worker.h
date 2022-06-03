@@ -75,8 +75,12 @@ public:
     static WorkerBuilder *const changeWorker(Worker * worker);
     // Builds new worker and generate ID
     static WorkerBuilder *const buildNewWorker();
+    // Builds existing worker in database. Crushes program if worker dont exists in database
+    static Worker* buildExistingWorker(unsigned int id);
     //Changes current worker.
     WorkerBuilder *const change();
+    // Deletes worker from database and frees Id;
+    void forceDelete();
 
     ~Worker() {};
 
@@ -106,21 +110,23 @@ class WorkerBuilder
     WorkerBuilder&& operator = (const WorkerBuilder&) = delete;
 public:
     // public function for all workers operation. Change | Build new. Please, use Worker class functions.
-    static WorkerBuilder *const build(Worker* worker = new Worker());
+    static WorkerBuilder *const build(Worker* worker = new Worker(), bool isNew = true);
 
     // All setters for data. ID dont changes from builder.
     WorkerBuilder *const setStatus(Worker::WorkerStatus status);
     WorkerBuilder *const setFirstName(const QString& first);
     WorkerBuilder *const setLastName(const QString& last);
     WorkerBuilder *const setGender(bool male);
+    WorkerBuilder *const setGender(const QChar& gender);
     WorkerBuilder *const setBirthDate(const QDate& birthDate);
     WorkerBuilder *const setEmploymentDate(const QDate& employmentDate);
     WorkerBuilder *const setFireDate(const QDate& fireDate);
     WorkerBuilder *const setFireReason(Worker::WorkerFireReason reason);
     WorkerBuilder *const setSalary(unsigned int salary);
     WorkerBuilder *const setAdditionalInfo(const QString& info);
-    // Copy data from other worker. ID dont copies.
+    //Copy data from other worker. ID dont copies.
     WorkerBuilder *const copyData(const Worker *const from);
+
     // function for get Changed | Created worker.
     Worker* getWorker();
     // function for get Changed | Created worker. Use *(WorkerBuilder) expression.

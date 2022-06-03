@@ -11,12 +11,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick Sql REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Sql REQUIRED)
 
 find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
 
-find_package(Qt6 REQUIRED COMPONENTS QuickControls2)
+#find_package(Qt6 REQUIRED COMPONENTS QuickControls2)
 
 #add_library(qcustomplot SHARED)
 #target_compile_definitions(qcustomplot PRIVATE QCUSTOMPLOT_COMPILE_LIBRARY)
@@ -34,6 +34,8 @@ set(PROJECT_SOURCES
         worker.h worker.cpp
         workerslist.h workerslist.cpp
         workerslistmodel.h workerslistmodel.cpp
+        sqlmanager.h sqlmanager.cpp
+        iddistributor.h iddistributor.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -63,7 +65,7 @@ target_compile_definitions(SADM
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
   QCUSTOMPLOT_COMPILE_LIBRARY)
 target_link_libraries(SADM
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt6::QuickControls2
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Sql
   PUBLIC Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
 
 set_target_properties(SADM PROPERTIES

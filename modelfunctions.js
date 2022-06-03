@@ -154,6 +154,8 @@ function moveToFired() {
 
     model.setData(modelIndex, Enums.Worker.FIRED, CPP.WorkersModel.WorkerStatusRole)
 
+    updateModelFiredInfo()
+
     activeWorkersList.moveToList(modelIndex, firedWorkersList)
 }
 

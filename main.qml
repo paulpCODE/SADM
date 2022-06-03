@@ -26,6 +26,13 @@ Window {
     property alias wlist: wlistwindow
     property alias wchangeandshow: wchangeandshowwindow
 
+    Component.onCompleted: {
+        if(activeWorkersList.size() !== 0) {
+            wlist.listRef.changeIndex(0)
+            ModelFuncs.updateShowWindow()
+        }
+    }
+
     TOPPANNEL {
         id: toppannel
         anchors.left: parent.left

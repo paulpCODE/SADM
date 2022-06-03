@@ -1,5 +1,16 @@
 #include "workerslist.h"
 
+WorkersList::WorkersList(QSqlQuery idsFromDB, QObject *parent) : QObject(parent)
+{
+    if(idsFromDB.exec()) {
+        while (idsFromDB.next()) {
+            m_Workers.push_back(Worker::buildExistingWorker(idsFromDB.value(0).toUInt()));
+        }
+    } else {
+        qDebug() << "Execute failed in WorkersList::WorkersList";
+    }
+}
+
 WorkersList::~WorkersList()
 {
     if(m_Workers.size() > 0) {
@@ -80,6 +91,8 @@ void WorkersList::forceDelete(const QModelIndex &index)
     auto worker = m_Workers.value(index.row());
 
     deleteWorker(index);
+
+    worker->forceDelete();
 
     delete worker;
 }

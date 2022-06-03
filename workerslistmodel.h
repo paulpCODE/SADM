@@ -4,19 +4,6 @@
 #include <QDate>
 #include <QAbstractListModel>
 
-//class JSQVariantConverter : public QObject {
-//    Q_OBJECT
-
-//public:
-//    JSQVariantConverter(QObject * parent = nullptr) : QObject(parent) {}
-//    ~JSQVariantConverter() {}
-
-//public slots:
-//    static QDate toDate(const QVariant& value);
-//    static QString toString(const QVariant& value);
-//    static int toInt(const QVariant& value);
-//};
-
 class WorkersListModel : public QAbstractListModel
 {
     Q_OBJECT
