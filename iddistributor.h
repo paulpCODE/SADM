@@ -1,7 +1,7 @@
 #ifndef IDDISTRIBUTOR_H
 #define IDDISTRIBUTOR_H
 
-#include <QVector>
+#include <QSet>
 
 class IDDistributor
 {
@@ -15,7 +15,7 @@ private:
 
     static IDDistributor * m_Instance;
 
-    QVector<unsigned int> freeIDs;
+    QSet<unsigned int> freeIDs;
     unsigned int nextID;
 public:
 

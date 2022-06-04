@@ -1,40 +1,50 @@
 #include "iddistributor.h"
-#include <QSettings>
+#include <sqlmanager.h>
 
 IDDistributor* IDDistributor::m_Instance = nullptr;
 
 IDDistributor::IDDistributor() : nextID(0), freeIDs()
 {
-    QSettings settings;
+    auto activeIds = SQLManager::selectAllActiveWorkersIDs();
+    auto firedIds = SQLManager::selectAllFiredWorkersIDs();
 
-    nextID = settings.value("NextID").toUInt();
+    QSet<unsigned int> busyIds;
 
-    const int size = settings.beginReadArray("FreeIDs");
+    activeIds.exec();
 
-    for(int i = 0; i < size; i++) {
-        settings.setArrayIndex(i);
-
-        freeIDs.push_back(settings.value("FreeID").toUInt());
+    int maxID = -1;
+    int id = - 1;
+    while(activeIds.next()) {
+        id = activeIds.value(0).toInt();
+        busyIds.insert(static_cast<unsigned int>(id));
+        if(maxID < id) {
+            maxID = id;
+        }
     }
-    settings.endArray();
 
+    firedIds.exec();
+
+    while(firedIds.next()) {
+        id = firedIds.value(0).toInt();
+        busyIds.insert(static_cast<unsigned int>(id));
+        if(maxID < id) {
+            maxID = id;
+        }
+    }
+
+    nextID = maxID + 1;
+
+    for(int i = 0; i < nextID; i++) {
+        freeIDs.insert(i);
+    }
+
+    if(freeIDs.size() != 0) {
+        freeIDs.subtract(busyIds);
+    }
 }
 
 IDDistributor::~IDDistributor()
-{
-    QSettings settings;
-
-    settings.setValue("NextID", nextID);
-
-    settings.beginWriteArray("IDs");
-
-    for(int i = 0; i < freeIDs.size(); i++) {
-        settings.setArrayIndex(i);
-
-        settings.setValue("FreeID", freeIDs[i - 1]);
-    }
-    settings.endArray();
-}
+{}
 
 unsigned int IDDistributor::getID()
 {
@@ -43,8 +53,8 @@ unsigned int IDDistributor::getID()
     }
 
     if(m_Instance->freeIDs.size() != 0) {
-        auto id = m_Instance->freeIDs.front();
-        m_Instance->freeIDs.removeFirst();
+        unsigned int id = *(m_Instance->freeIDs.begin());
+        m_Instance->freeIDs.remove(id);
         qDebug() << "ID: " << id;
         return id;
     }
@@ -72,5 +82,5 @@ void IDDistributor::freeID(unsigned int id)
         return;
     }
 
-    m_Instance->freeIDs.push_back(id);
+    m_Instance->freeIDs.insert(id);
 }
