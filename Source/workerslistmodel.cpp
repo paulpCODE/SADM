@@ -1,5 +1,5 @@
 #include "workerslistmodel.h"
-#include <workerslist.h>
+#include "workerslist.h"
 
 int WorkersListModel::rowCount(const QModelIndex &parent) const
 {

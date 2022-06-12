@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
-import "buttonsfunctions.js" as Buttons
+import "../js/buttonsfunctions.js" as Buttons
 
 // Worker Show Window
 

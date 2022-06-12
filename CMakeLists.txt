@@ -27,15 +27,15 @@ find_package(Qt6 COMPONENTS Widgets PrintSupport REQUIRED)
 
 
 set(PROJECT_SOURCES
-        main.cpp
-        qml.qrc
+        Source/main.cpp
+        GUI/qml.qrc
         qcustomplot/qcustomplot.h
         qcustomplot/qcustomplot.cpp
-        worker.h worker.cpp
-        workerslist.h workerslist.cpp
-        workerslistmodel.h workerslistmodel.cpp
-        sqlmanager.h sqlmanager.cpp
-        iddistributor.h iddistributor.cpp
+        Source/worker.h Source/worker.cpp
+        Source/workerslist.h Source/workerslist.cpp
+        Source/workerslistmodel.h Source/workerslistmodel.cpp
+        Source/sqlmanager.h Source/sqlmanager.cpp
+        Source/iddistributor.h Source/iddistributor.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

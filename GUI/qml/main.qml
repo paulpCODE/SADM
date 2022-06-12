@@ -2,8 +2,8 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import Model 1.0
 
-import "modelfunctions.js" as ModelFuncs
-import "buttonsfunctions.js" as Buttons
+import "../js/modelfunctions.js" as ModelFuncs
+import "../js/buttonsfunctions.js" as Buttons
 
 Window {
     id: mainwindow

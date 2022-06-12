@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/BUTTON.qml</file>
+        <file>qml/DATEINPUT.qml</file>
+        <file>qml/DATEPICKER.qml</file>
+        <file>qml/DELEGATE.qml</file>
+        <file>qml/FIREWINDOW.qml</file>
+        <file>qml/INPUT.qml</file>
+        <file>qml/LIST.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/SEPARATOR.qml</file>
+        <file>qml/SWITCHER.qml</file>
+        <file>qml/TOPPANNEL.qml</file>
+        <file>qml/WCHANGEANDSHOWWINDOW.qml</file>
+        <file>qml/WCHANGEWINDOW.qml</file>
+        <file>qml/WLISTWINDOW.qml</file>
+        <file>qml/WSHOWWINDOW.qml</file>
+        <file>js/buttonsfunctions.js</file>
+        <file>js/modelfunctions.js</file>
+    </qresource>
+</RCC>

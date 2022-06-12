@@ -1,5 +1,5 @@
 #include "iddistributor.h"
-#include <sqlmanager.h>
+#include "sqlmanager.h"
 
 IDDistributor* IDDistributor::m_Instance = nullptr;
 

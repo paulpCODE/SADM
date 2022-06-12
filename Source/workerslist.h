@@ -2,7 +2,7 @@
 #define WORKERSLIST_H
 
 #include <QObject>
-#include <worker.h>
+#include "worker.h"
 #include <QVector>
 #include <QModelIndex>
 #include <QJSValue>

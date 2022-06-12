@@ -1,6 +1,6 @@
 #include "worker.h"
-#include <sqlmanager.h>
-#include <iddistributor.h>
+#include "sqlmanager.h"
+#include "iddistributor.h"
 
 WorkerBuilder* WorkerBuilder::m_Instance = nullptr;
 

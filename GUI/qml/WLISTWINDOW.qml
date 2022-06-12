@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import "buttonsfunctions.js" as Buttons
+
+import "../js/buttonsfunctions.js" as Buttons
 
 // Workers List Window
 
